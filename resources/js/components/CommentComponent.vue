@@ -1,9 +1,9 @@
 <template>
     <div class="comment">
-        <div>{{tech1.body}}<a href="#" @click="deleteComment(tech1.id) ">x</a></div>
-        <a href="#" @click="show =!show" class="btn">Reply</a>
+        <div>{{tech1.body}}<a href="#" @click="deleteComment(tech1.id) ">&#10008;	</a></div>
+        <a href="#" @click="show =!show" class="btn" title="Reply">&#8617;</a>
         <transition name="fade" :duration="1000">
-            <form-component v-if="show" v-bind:comment_id="index"></form-component>
+            <form-component v-if="show" v-bind:index="index"></form-component>
         </transition>
         <ul v-if="tech1.children && tech1.children.length >0">
             <comment-component v-bind:tech1="child"

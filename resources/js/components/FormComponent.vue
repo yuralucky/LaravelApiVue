@@ -5,9 +5,11 @@
         <textarea cols="40" rows="5" v-model="comment.body"
                   name="body"></textarea>
         </div>
-        <input type="hidden" name="comment_id"  :value="comment_id">
+        <div>
+            <!--            <input type="number" name="comment_id" :value="index">-->
+        </div>
         <div class="form__buttons form__buttons_comment js-form-buttons">
-            <button type="button" @click.prevent="addComment()" name="send"
+            <button type="button" @click.prevent="addComment(index)" name="send"
                     class="btn btn_x-large btn_blue">Add comment
             </button>
         </div>
@@ -19,6 +21,7 @@
 <script>
     export default {
         name: "FormComponent",
+        props: ['index'],
         data: function () {
             return {
                 comment: {
@@ -28,14 +31,13 @@
             }
         },
         methods: {
-            addComment() {
-                // let app = this;
+            addComment(index) {
+                let app = this;
                 let newComment = app.comment;
+                newComment.comment_id = index;
                 window.axios.post('/api/comments/', newComment)
                     .then(function (resp) {
-                        // app.comment.pus;
-                        console.log(app.$attrs)
-
+                        console.log('Add new comment')
                     })
                     .catch(function (resp) {
                         alert("Could not add comment");

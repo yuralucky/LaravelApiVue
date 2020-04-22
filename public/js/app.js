@@ -1984,8 +1984,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FormComponent",
+  props: ['index'],
   data: function data() {
     return {
       comment: {
@@ -1995,12 +1998,12 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    addComment: function addComment() {
-      // let app = this;
+    addComment: function addComment(index) {
+      var app = this;
       var newComment = app.comment;
+      newComment.comment_id = index;
       window.axios.post('/api/comments/', newComment).then(function (resp) {
-        // app.comment.pus;
-        console.log(app.$attrs);
+        console.log('Add new comment');
       })["catch"](function (resp) {
         alert("Could not add comment");
       });
@@ -38364,7 +38367,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("x")]
+          [_vm._v("✘\t")]
         )
       ]),
       _vm._v(" "),
@@ -38372,14 +38375,14 @@ var render = function() {
         "a",
         {
           staticClass: "btn",
-          attrs: { href: "#" },
+          attrs: { href: "#", title: "Reply" },
           on: {
             click: function($event) {
               _vm.show = !_vm.show
             }
           }
         },
-        [_vm._v("Reply")]
+        [_vm._v("↩")]
       ),
       _vm._v(" "),
       _c(
@@ -38387,7 +38390,7 @@ var render = function() {
         { attrs: { name: "fade", duration: 1000 } },
         [
           _vm.show
-            ? _c("form-component", { attrs: { comment_id: _vm.index } })
+            ? _c("form-component", { attrs: { index: _vm.index } })
             : _vm._e()
         ],
         1
@@ -38461,10 +38464,7 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("input", {
-        attrs: { type: "hidden", name: "comment_id" },
-        domProps: { value: _vm.comment_id }
-      }),
+      _c("div"),
       _vm._v(" "),
       _c(
         "div",
@@ -38478,7 +38478,7 @@ var render = function() {
               on: {
                 click: function($event) {
                   $event.preventDefault()
-                  return _vm.addComment()
+                  return _vm.addComment(_vm.index)
                 }
               }
             },
